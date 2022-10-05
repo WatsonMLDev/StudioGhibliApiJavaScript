@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <title>Studio Ghibli Movies</title>
+  </head>
+  <body>
+
+    <h1>Studio Ghibli Movies</h1>
+    <br>
+    <label>Select a movie to learn more about it: </label>
+
+    <label for="movieSelection"></label>
+    <select id="movieSelection" onchange="describeMovie();">
+        <option selected disabled hidden>Choose here!</option>
+    </select>
+    <br>
+
+    <div id="movieInfo">
+        <h3 id="movieTitle"></h3>
+        <br>
+        <image id="movieImage"></image>
+        <br>
+        <label id="movieDescription"></label>
+        <br>
+        <label id="movieDirector"></label>
+        <br>
+        <label id="movieProducer"></label>
+        <br>
+        <label id="movieReleaseDate"></label>
+        <br>
+        <label id="movieRottenTomatoes"></label>
+        <br>
+        <label id="movieRuntime"></label>
+        <br>
+        <label for="moviePeople" id="moviePeopleLabel" style="display: none"><strong>Voice actors</strong>:</label>
+        <ul id="moviePeople"></ul>
+    </div>
+
+    <script src="index.js" defer></script>
+
+  </body>
+</html>
