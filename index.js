@@ -5,6 +5,7 @@ function describeMovie() {
         const movieSelection = document.querySelector("#movieSelection").selectedIndex;
         document.querySelector("#moviePeople").innerHTML = "";
         let movie = movieJson.at(movieSelection-1);
+
         document.querySelector("#movieTitle").innerHTML = `Title: ${movie.title}`;
         document.querySelector("#movieImage").src = movie.image;
         document.querySelector("#movieDescription").innerHTML = `<strong>Description</strong>: ${movie.description}`;
@@ -43,6 +44,22 @@ function describeMovie() {
                 document.querySelector("#moviePeopleLabel").style.display = "none";
             }
         })
+
+        let request = new XMLHttpRequest();
+        request.open("POST", "https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english", true);
+        request.setRequestHeader("Content-Type", "application/json");
+        request.setRequestHeader("Authorization", "Bearer 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");
+        request.send(JSON.stringify({"inputs": movie.description}));
+        request.onload = function() {
+            if (request.status < 200 && request.status >= 400) {
+                console.log(`Error ${request.status}: ${request.statusText}`);
+                return;
+            }
+            let sentiment = JSON.parse(this.response);
+            console.log(sentiment);
+            document.querySelector("#movieSentiment").innerHTML = `<strong>Sentiment</strong>: ${sentiment[0][0].label.toLowerCase()} (Accuracy: ${sentiment[0][0].score.toFixed(2)})`;
+        }
+
     }catch(e){
         console.log(e);
         document.querySelector("#movieTitle").innerHTML = `Error: ${e}`;
